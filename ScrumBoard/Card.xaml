@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid Margin="0 0 0 10">
-        <Border Grid.Column="0" CornerRadius="10" BorderThickness="1" BorderBrush="Black">
+        <Border Grid.Column="0" CornerRadius="10 10 0 10" BorderThickness="1" BorderBrush="Black">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"></RowDefinition>
@@ -15,6 +15,9 @@
                 </Grid.RowDefinitions>
                 <TextBlock x:Name="GuiTitle" Grid.Row="0" Margin="10 0 0 0" VerticalAlignment="Center">Card Title</TextBlock>
                 <TextBlock x:Name="GuiDescription" Grid.Row="1" Margin="10 10 0 0" TextWrapping="Wrap">Description</TextBlock>
+                <Border Grid.Row="1" CornerRadius="20">
+                    <Button Width="30" Height="30" VerticalAlignment="Bottom" HorizontalAlignment="Right" Background="Transparent" BorderThickness="1" BorderBrush="Black" Margin="0 0 -1 -1" Click="editBtn_Click">E</Button>
+                </Border>
             </Grid>
         </Border>
     </Grid>

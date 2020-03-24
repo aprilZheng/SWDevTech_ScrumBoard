@@ -40,6 +40,7 @@ namespace ScrumBoard
             };
             newCard.Title = "Title of new card";
             newCard.Description = "Description of new card";
+            newCard.Priority = CardPriority.LOW;
 
             column.Add(newCard);
             GetContainer(sender).Children.Add(newCard);

@@ -1,17 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Collections.Generic;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace ScrumBoard
 {
@@ -20,8 +9,17 @@ namespace ScrumBoard
     /// </summary>
     public partial class Card : UserControl
     {
+        //TODO: Create priorities. Low, medium, high.
+        // If the priority changes, change the color of the card.
         private string title_;
         private string description_;
+        private CardPriority priority_;
+
+        private Dictionary<CardPriority, SolidColorBrush> colorMapping = new Dictionary<CardPriority, SolidColorBrush> {
+            {CardPriority.HIGH, Brushes.IndianRed},
+            {CardPriority.LOW, Brushes.LightGreen},
+            {CardPriority.MEDIUM, Brushes.Wheat}
+        };
 
         public string Title {
             get
@@ -45,14 +43,37 @@ namespace ScrumBoard
                 GuiDescription.Text = description_;
             }
         }
+        public CardPriority Priority
+        {
+            get
+            {
+                return priority_;
+            }
+            set
+            {
+                priority_ = value;
+                ChangeBackgroundColor(colorMapping[priority_]);
+            }
+        }
 
         public Card()
         {
             InitializeComponent();
 
+            ChangeBackgroundColor(Brushes.White);
+        }
+
+        private void ChangeBackgroundColor(SolidColorBrush color)
+        {
             Grid grid = (Grid)Content;
             Border card = (Border)grid.Children[0];
-            card.Background = Brushes.White;
+            card.Background = color;
+        }
+
+        private void editBtn_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            EditWindow window = new EditWindow(this);
+            window.ShowDialog();
         }
     }
 }
