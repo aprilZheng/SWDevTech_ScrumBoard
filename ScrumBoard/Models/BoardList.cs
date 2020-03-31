@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ScrumBoard
+namespace ScrumBoard.Models
 {
-    public enum CardPriority
+    public enum BoardList
     {
-        LOW,
-        MEDIUM,
-        HIGH
+        TODO,
+        DOING,
+        DONE
     }
 }

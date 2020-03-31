@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using ScrumBoard.Models;
+using ScrumBoard.Views;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -9,41 +11,48 @@ namespace ScrumBoard
     /// </summary>
     public partial class MainWindow : Window
     {
-        // Properties
-        public List<Card> TodoList { get; }
-        public List<Card> DoingList { get; }
-        public List<Card> DoneList { get; }
-
-        private Dictionary<string, List<Card>> labelMapping =
-            new Dictionary<string, List<Card>>();
+        public ScrumBoardApp Board { get; }
 
         public MainWindow()
         {
             InitializeComponent();
 
-            TodoList = new List<Card>();
-            labelMapping.Add("To Do", TodoList);
-            DoingList = new List<Card>();
-            labelMapping.Add("Doing", DoingList);
-            DoneList = new List<Card>();
-            labelMapping.Add("Done", DoneList);
+            Board = new ScrumBoardApp();
         }
 
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
             string label = GetColumnLabel(sender);
-            List<Card> column = labelMapping[label];
 
-            Card newCard = new Card
-            {
-                Height = 150
-            };
+            // --- MODEL ---
+            Card newCard = new Card();
             newCard.Title = "Title of new card";
             newCard.Description = "Description of new card";
             newCard.Priority = CardPriority.LOW;
 
-            column.Add(newCard);
-            GetContainer(sender).Children.Add(newCard);
+            Board.Cards.Add(newCard);
+
+            // --- VIEW ---
+            CardView cardView = new CardView(newCard);
+            cardView.Height = 150;
+
+            // --- VIEW + MODEL ---
+            switch (label)
+            {
+                case "To Do":
+                    newCard.Membership = BoardList.TODO;
+                    TodoContainer.Children.Add(cardView);
+                    break;
+                case "Doing":
+                    newCard.Membership = BoardList.DOING;
+                    DoingContainer.Children.Add(cardView);
+                    break;
+                case "Done":
+                    newCard.Membership = BoardList.DONE;
+                    DoneContainer.Children.Add(cardView);
+                    break;
+            }
+
         }
 
         private string GetColumnLabel(object sender)
@@ -53,15 +62,6 @@ namespace ScrumBoard
             TextBlock label = (TextBlock)grid.Children[1];
 
             return label.Text;
-        }
-
-        private StackPanel GetContainer(object sender)
-        {
-            Button senderBtn = (Button)sender;
-            Grid grid = (Grid)senderBtn.Parent;
-            ScrollViewer container = (ScrollViewer)grid.Children[4];
-
-            return (StackPanel)container.Content;
         }
     }
 }
