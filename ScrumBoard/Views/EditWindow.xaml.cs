@@ -27,16 +27,13 @@ namespace ScrumBoard.Views
             InitializeComponent();
 
             Card = cardIn;
+            DataContext = Card;
 
             BuildPriorityList();
-            TitleInput.Text = Card.Title;
-            DescInput.Text = Card.Description;
         }
 
         private void OkBtn_Click(object sender, RoutedEventArgs e)
         {
-            Card.Title = TitleInput.Text;
-            Card.Description = DescInput.Text;
             Card.Priority = ProcessPriority();
 
             Close();

@@ -13,7 +13,7 @@
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Column="0" HorizontalAlignment="Center">Title:</TextBlock>
-            <TextBox x:Name="TitleInput" Grid.Column="1"></TextBox>
+            <TextBox Grid.Column="1" Text="{Binding Title}"></TextBox>
         </Grid>
         <Grid DockPanel.Dock="Top" Margin="0 0 0 10">
             <Grid.ColumnDefinitions>
@@ -21,7 +21,7 @@
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Column="0" HorizontalAlignment="Center">Description:</TextBlock>
-            <TextBox x:Name="DescInput" Grid.Column="1"></TextBox>
+            <TextBox Grid.Column="1" Text="{Binding Description}"></TextBox>
         </Grid>
         <Grid DockPanel.Dock="Top" Margin="0 0 0 10">
             <Grid.ColumnDefinitions>
