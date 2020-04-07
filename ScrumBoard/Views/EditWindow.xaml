@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ScrumBoard.Views"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
         Title="EditWindow" Height="450" Width="800">
     <DockPanel Margin="10">
@@ -30,6 +31,14 @@
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Column="0" HorizontalAlignment="Center">Priority:</TextBlock>
             <ComboBox x:Name="PriorInput" Grid.Column="1"></ComboBox>
+        </Grid>
+        <Grid DockPanel.Dock="Top" Margin="0 0 0 10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" HorizontalAlignment="Center">Due date:</TextBlock>
+            <xctk:DateTimePicker x:Name="DueInput" Grid.Column="1" Value="{Binding DueDate}"></xctk:DateTimePicker>
         </Grid>
         <Grid DockPanel.Dock="Bottom" VerticalAlignment="Bottom">
             <Grid.ColumnDefinitions>

@@ -53,6 +53,31 @@ namespace ScrumBoard
                     break;
             }
 
+            newCard.PropertyChanged += (s, evt) =>
+            {
+                if (evt.PropertyName == "Membership")
+                {
+                    CardView view;
+
+                    view = GetCardFromBoard(TodoContainer.Children, newCard) ??
+                        GetCardFromBoard(DoingContainer.Children, newCard) ??
+                        GetCardFromBoard(DoneContainer.Children, newCard);
+
+                    switch (newCard.Membership)
+                    {
+                        case BoardList.TODO:
+                            TodoContainer.Children.Add(view);
+                            break;
+                        case BoardList.DOING:
+                            DoingContainer.Children.Add(view);
+                            break;
+                        case BoardList.DONE:
+                            DoneContainer.Children.Add(view);
+                            break;
+                    }
+                }
+            };
+
         }
 
         private string GetColumnLabel(object sender)
@@ -62,6 +87,20 @@ namespace ScrumBoard
             TextBlock label = (TextBlock)grid.Children[1];
 
             return label.Text;
+        }
+
+        private CardView GetCardFromBoard(UIElementCollection column, Card card)
+        {
+            foreach (CardView view in column)
+            {
+                if (view.DataContext == card)
+                {
+                    column.Remove(view);
+                    return view;
+                }
+            }
+
+            return null;
         }
     }
 }

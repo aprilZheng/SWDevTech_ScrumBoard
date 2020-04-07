@@ -21,6 +21,7 @@ namespace ScrumBoard.Views
     public partial class EditWindow : Window
     {
         public Card Card { get; }
+        public DateTime? OriginalDueDate { get; }
 
         public EditWindow(Card cardIn)
         {
@@ -28,6 +29,7 @@ namespace ScrumBoard.Views
 
             Card = cardIn;
             DataContext = Card;
+            OriginalDueDate = Card.DueDate;
 
             BuildPriorityList();
         }
@@ -41,6 +43,7 @@ namespace ScrumBoard.Views
 
         private void CancelBtn_Click(object sender, RoutedEventArgs e)
         {
+            Card.DueDate = OriginalDueDate;
             Close();
         }
 

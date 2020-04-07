@@ -49,9 +49,51 @@ namespace ScrumBoard.Models
             }
         }
 
+        private DateTime? dueDate;
+        public DateTime? DueDate {
+            get => dueDate;
+            set
+            {
+                dueDate = value;
+                if (dueDate == null)
+                {
+                    DueDateText = null;
+                }
+                else
+                {
+                    DateTime nonNullable = (DateTime)dueDate;
+                    DueDateText = nonNullable.ToString("yyyy-MM-dd H:m:s");
+                }
+            }
+        }
 
-        public DateTime? DueDate { get; set; }
-        public BoardList Membership { get; set; }
+        private string dueDateText;
+        public string DueDateText
+        {
+            get => dueDateText;
+            set
+            {
+                if (dueDateText != value)
+                {
+                    dueDateText = value;
+                    TriggerPropertyChanged("DueDateText");
+                }
+            }
+        }
+
+        private BoardList membership;
+        public BoardList Membership
+        {
+            get => membership;
+            set
+            {
+                if (membership != value)
+                {
+                    membership = value;
+                    TriggerPropertyChanged("Membership");
+                }
+            }
+        }
 
         private void TriggerPropertyChanged(string name)
         {
